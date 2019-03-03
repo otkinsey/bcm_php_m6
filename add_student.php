@@ -1,4 +1,4 @@
-<?php require('view/header.php'); ?>
+<?php require_once('config.php') ?>
 <?php 
 
     if(isset($_POST[ 'addStudent' ])){

@@ -56,7 +56,7 @@ class Database{
         $dbs = $db->prepare('select * from sk_courses where courseID = :id');
         $dbs->bindValue(':id', $id, PDO::PARAM_STR);
         $dbs->execute();
-        $results = $dbs->fetchObject();
+        $results = $dbs->fetchAll();
         return $results;
     }
 
