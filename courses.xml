@@ -1,9 +1,2 @@
 <?xml version="1.0"?>
-<courses>
-  <courseID>cs601</courseID>
-  <courseName>Web Application Development</courseName>
-  <courseID>cs602</courseID>
-  <courseName>Server-Side Web Development</courseName>
-  <courseID>cs701</courseID>
-  <courseName>Rich Internet Application Development</courseName>
-</courses>
+<courses/>

@@ -58,19 +58,17 @@ function processVars(){
     switch($vars){
         
         // 1. get specific course - course=<course id>
-        case ($vars['action'] == 'students' && $vars['course'] !== null):
+        case ($vars['action'] == 'students' && is_string($vars['course'])):            
             global $db;           
-            $data = $db->selectStudentsFromCourses($vars['course']); 
-            print '[DIAG: rest.php - processVars] TEST';
+            $data = $db->selectStudentsFromCourses($vars['course']);             
             if(isset($vars['format'])){
-                // print '[DIAG: rest.php - processVars] format: '.$vars['format'];
                 echo formatOutput($vars['format'], $data);
             }
             else{  echo formatOutput('xml', $data);  } 
             break;
 
         // 2. get all students - action='student'
-        case ($vars['action'] == 'students') :
+        case (($vars['action'] == 'students') && $vars['course'] == null):        
             global $db;
             $data = $db->selectAllStudents();                                  
             if(isset($vars['format'])){
@@ -80,7 +78,7 @@ function processVars(){
             break;
         
         // 3. get all courses - action='courses'
-        case ($vars['action'] == 'courses'):
+        case ($vars['action'] == 'courses'):            
             global $db;          
             $data = $db->selectAllCourses();                        
             if(isset($vars['format'])){
@@ -90,10 +88,9 @@ function processVars(){
             break;
 
         default:
-            echo '<h2>This is an invalid query.</h2>';
-            break;
+            echo '<h3>This is an invalid query</h3>';
+            
     }
-
 }
 processVars();
 ?>
