@@ -62,8 +62,8 @@ function processVars(){
     switch($vars){
         
         // 1. get specific course - course=<course id>
-        case ($vars['action'] == 'students' && is_string($vars['course'])):            
-            global $db;           
+        case ($vars['action'] == 'students' && (($vars['course'] !== null) && is_string($vars['course']))):            
+            global $db;  
             $data = $db->selectStudentsFromCourses($vars['course']);             
             if(isset($vars['format'])){
                 echo formatOutput($vars['format'], $data);
@@ -72,8 +72,9 @@ function processVars(){
             break;
 
         // 2. get all students - action='student'
-        case (($vars['action'] == 'students') && $vars['course'] == null):        
+        case (($vars['action'] == 'students') && ($vars['course'] == null) && count($vars) <= 2):        
             global $db;
+            
             $data = $db->selectAllStudents();                                  
             if(isset($vars['format'])){
                 echo formatOutput($vars['format'], $data);
@@ -82,7 +83,7 @@ function processVars(){
             break;
         
         // 3. get all courses - action='courses'
-        case ($vars['action'] == 'courses'):            
+        case ($vars['action'] == 'courses' && count($vars) <= 2):            
             global $db;          
             $data = $db->selectAllCourses();                        
             if(isset($vars['format'])){
