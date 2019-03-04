@@ -1,4 +1,5 @@
 <?php require_once('config.php') ?>
+<?php $db = new Database('otkinsey','komet1','mysql:host=localhost;dbname=module_5'); ?>
 <?php 
 if(!isset($_GET[ 'courseID' ])){
     $courseID = 'cs601';

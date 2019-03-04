@@ -1,5 +1,6 @@
 <?php 
 require_once('config.php');
+$db = new Database('otkinsey','komet1','mysql:host=localhost;dbname=module_5'); 
 $vars =  $_GET;
 
 function createXmlDoc($dataArray){ 
@@ -40,7 +41,9 @@ function createXmlDoc($dataArray){
             $rootElement->appendChild($i);
         }
     }
-    $doc->save($file) or die('Something went in rest.php createXmlDoc()');
+    // echo $doc->save($file) or die('Something went in rest.php createXmlDoc()');
+    echo header('Content-type: application/xml');
+    echo $doc->saveXML($rootElement);
 }
 
 function formatOutput($format, $data){    
@@ -48,8 +51,9 @@ function formatOutput($format, $data){
         case('xml'):              
             return  createXmlDoc($data);
             
-        case('json'):        
-           return json_encode($data);
+        case('json'):  
+        header('Content-type: application/json');
+           return json_encode($data, JSON_PRETTY_PRINT);
     }
 }   
 
@@ -96,16 +100,3 @@ processVars();
 ?>
 
 
-</div>
-<hr>
-<footer>
-    <p class="copyright">
-        &copy; <?php echo date("Y"); ?> Course Manager
-    </p>
-</footer>
-<?php if(isset($vars['action'])): ?>
-<script src="module-6_ajax.js"></script>
-<?php endif; ?>
-</div>
-</body>
-</html>
